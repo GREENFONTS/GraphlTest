@@ -1,0 +1,25 @@
+{
+  "name": "graphl_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Greenfonts",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^2.1.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
+    "graphql": "^15.2.0",
+    "loadash": "^1.0.0",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.20"
+  },
+  "devDependencies": {
+    "@prisma/cli": "^2.1.3",
+    "nodemon": "^2.0.4"
+  }
+}

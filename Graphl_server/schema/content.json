@@ -1,0 +1,53 @@
+{
+    "Books":[
+        {
+            "id": 1,
+            "Name": "The world of Fantasy",
+            "Genre": "Fantasy"
+        },
+        {
+            "id": 2,
+            "Name": "Frankestien",
+            "Genre": "Sci-Fiction"
+        },
+        {
+            "id": 3,
+            "Name": "Toy Story",
+            "Genre": "Adventure"
+        },
+        {
+            "id": 4,
+            "Name": "Alone",
+            "Genre": "Horror"
+        },
+        {
+            "id": 5,
+            "Name": "Barbie",
+            "Genre": "Fantasy"
+        },
+        {
+            "id": 6,
+            "Name": "Fast and Furious",
+            "Genre": "Action"
+        }
+    ],
+    "Author":[
+        {
+            "id": 1,
+            "Name":"Arnold Swaznegger",
+            "Age": "34"
+        },
+        {
+            "id": 2,
+            "Name": "Paul helman",
+            "Age": "25"
+        },
+        {
+            "id": 3,
+            "Name": "Elevio",
+            "Age": "19"
+        }
+    ]
+
+
+}
