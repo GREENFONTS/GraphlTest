@@ -8,16 +8,16 @@ datasource db {
 }
 
 model author {
-  age   Int?
-  id    String  @id @default(cuid())
-  name  String?
-  books books[]
+  id          String  @id @default(cuid())
+  name        String? @unique
+  nationality String?
+  books       books[]
 }
 
 model books {
   authorid String?
   genre    String?
-  id       String @id @default(cuid())
-  name     String?  
+  id       String  @id @default(cuid())
+  name     String?
   author   author? @relation(fields: [authorid], references: [id])
 }

@@ -11,7 +11,7 @@ class AddBook extends Component {
             Genre: "",
           AuthorId: "",
           AuthorName: "",
-          Age: "",
+          Nationality: "",
           BookDisplay: false,
             AuthorDisplay: true
         }
@@ -35,46 +35,59 @@ class AddBook extends Component {
   }
       
     BookPost(e) {
-      // e.preventDefault()
+
+      try {
       this.props.AddBooks({
-         variables: {
-          name: this.state.Name,
-          genre: this.state.Genre,
-           authorid: this.state.AuthorId
-        },
-        refetchQueries: [{query: BooksQuery}]
-        
-      })
+          variables: {
+            name: this.state.Name,
+            genre: this.state.Genre,
+            authorid: this.state.AuthorId,
+          },
+          refetchQueries: [{ query: BooksQuery }],
+       });
+      } catch (error) {
+        console.log(error)
+      }
+      
     
        
   }
-   ///something is wrong.....which master is it seeing
-  AuthorPost(e) {
-    e.preventDefault()
-    console.log(this.props)
-    this.props.AddAuthor({
-      variables: {
-        name: this.state.AuthorName,
-        age: parseInt(this.state.Age)
-      }
-    })
+
+  async AuthorPost(e) {
+    console.log(this.state)
+    try {
+       await this.props.AddAuthor({
+         variables: {
+           name: this.state.AuthorName,
+           nationality: this.state.Nationality
+         },
+       });
+      
+    } catch (error) {
+      console.log("name already exists")
+      return (
+        alert(
+          "Author has Already been Registered"       
+        )
+      )
+        }
+ 
+    
   }
   
-  BookForm() {
+ BookForm() {
     return (
-      <form
-        onSubmit={this.BookPost.bind(this)}
-        className="container p-3">
-       <div className="form-group">
+      <form onSubmit={this.BookPost.bind(this)} className="container p-3">
+        <div className="form-group">
           <label>Book Name:</label>
-          <input   
-               className="form-control"
-             type="text"
-             name="Name"
-             placeholder="Enter book name"
-             id="Name"
-             onChange={(e) => { 
-               this.setState({ Name: e.target.value });
+          <input
+            className="form-control"
+            type="text"
+            name="Name"
+            placeholder="Enter book name"
+            id="Name"
+            onChange={(e) => {
+              this.setState({ Name: e.target.value });
             }}
             required
           />
@@ -97,58 +110,52 @@ class AddBook extends Component {
           <label>Author: </label>
           <select
             id="authors"
-            // className="form-control"
+            className="form-control"
             onChange={(e) => {
               this.setState({ AuthorId: e.target.value });
             }}
-           required>
+            required
+          >
             <option>Select Author</option>
             {this.DisplayAuthors()}
           </select>
         </div>
-       
-        <button
-          // className="btn btn-info rounded-circle "
-          type="submit"
-          id="addbutton"
-        >
+
+        <button type="submit" id="addbutton">
           +
-        </button> 
-        </form>
-    )
+        </button>
+      </form>
+    );
   }
 
   AuthorForm() {
     return (
-      <form
-        onSubmit={this.AuthorPost.bind(this)}
-        className="container p-3"
-      >
+      <form onSubmit={this.AuthorPost.bind(this)} className="container p-3">
         <div className="form-group">
           <label>Author: </label>
           <input
             type="text"
+            className="form-control"
             placeholder="Enter Author name"
             onChange={(e) => {
               this.setState({ AuthorName: e.target.value });
             }}
-           required/>
+            required
+          />
         </div>
         <div className="form-group">
-          <label>Author's Age: </label>
+          <label>Author's Nationality: </label>
           <input
-            type="tel"
-            placeholder="Enter Author's Age"
+            type="text"
+            className="form-control"
+            placeholder="Enter Author's Nationality"
             onChange={(e) => {
-              this.setState({ Age: e.target.value });
+              this.setState({ Nationality: e.target.value });
             }}
-         required />
+            required
+          />
         </div>
-        <button
-           // className="btn btn-info rounded-circle "
-          type="submit"
-          id="addbutton"
-        >
+        <button type="submit" id="addbutton">
           +
         </button>
       </form>
@@ -156,7 +163,7 @@ class AddBook extends Component {
   }
   
 
-  Displaychoice() {
+  Displaychoice(e) {
     if (this.state.AuthorDisplay === true) {
       return (
       this.AuthorForm() 
@@ -174,7 +181,7 @@ class AddBook extends Component {
       <div className="form">
         {this.Displaychoice()}
         <button
-          className="btn btn-info mr-2 mt-2"
+          className="btn btn-info mr-1 mt-2"
           onClick={(e) => {
             this.setState({
               AuthorDisplay: true,
@@ -185,7 +192,7 @@ class AddBook extends Component {
           Add Author
         </button>
         <button
-          className="btn btn-info ml-3 mt-2"
+          className="btn btn-info ml-2 mt-2"
           onClick={(e) => {
             this.setState({
               AuthorDisplay: false,

@@ -13,11 +13,6 @@ app.use('/graphql', graphqlHTTP({
     graphiql: true
 }))
 
-// app.get('/createBook', async (req, res) => {
-//     console.log(req.body)
-// })
-
-
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {

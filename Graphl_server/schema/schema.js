@@ -2,6 +2,7 @@ const graphql = require("graphql")
 const __ = require('lodash')
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const  { GraphQLError } = require ("graphql");
 
 const {
   GraphQLObjectType,
@@ -39,7 +40,7 @@ const AuthorType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
-    age: { type: GraphQLInt },
+    nationality: { type: GraphQLString },
     books: {
       type: new GraphQLList(BookType),
   
@@ -124,33 +125,34 @@ const Mutation = new GraphQLObjectType({
     addAuthor: {
       type: AuthorType,
       args: {
-        Name: { type: new GraphQLNonNull(GraphQLString) },
-        Age: { type: new GraphQLNonNull(GraphQLInt) },
+        Name: { type: GraphQLString },
+        nationality: { type: GraphQLString },
       },
       async resolve(parent, args) {
-        // let FoundAuthor = await prisma.author.findOne({
-        //   where: {
-        //     name : args.Name
-        //   }
-        // })
-        // if (FoundAuthor) {
-        //   throw new Error (
-        //     "Author already Registered"
-        //   )
-        // }
-        // else {
+        try {
           return await prisma.author.create({
             data: {
               name: args.Name,
-              age: args.Age,
+              nationality: args.nationality,
             },
           });
-        // }
+        } catch (error) {
+          console.log(error)
+          if (error.code =="P2002") {
+            throw new Error({
+               error:"name already exists"
+             })
+          }
+          else {
+                      throw new Error(JSON.stringify(error));
+
+          }
+        }
       }
        
       },
     },
-  // },
+ 
 });
 
 module.exports = new GraphQLSchema({

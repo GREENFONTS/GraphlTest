@@ -12,7 +12,7 @@ class BookList extends Component {
         clicked: ""
     })
   }
-  //what should i ty
+
   DisplayBooks() {
 
     let Data = this.props.data;
@@ -23,7 +23,6 @@ class BookList extends Component {
         )
       }
       else {
-        console.log(Data.books);
         return  Data.books.map(book => {
             return (
               <li key={book.id} onClick={(e => this.setState({ clicked: book.id }))} className="d-inline-block" id="BookList"> {book.name}</li>
@@ -34,9 +33,6 @@ class BookList extends Component {
       
     }
     
-    
- 
-
   render() {
     
     return (
